@@ -1,0 +1,145 @@
+{
+	"info": {
+		"_postman_id": "5f75954a-de2d-4723-b55e-509bf86ecf5c",
+		"name": "Insurance Sandbox",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36152681"
+	},
+	"item": [
+		{
+			"name": "All policies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/policies",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"policies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Policy by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/policy/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"policy",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New policy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"99-12345A-01-01\",\n    \"active\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/policy",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"policy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update by ID",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"AA-AAAAAA-01-01\",\n    \"active\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/policy/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"policy",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Policy by ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/policy/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"policy",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "localhost:8080",
+			"type": "string"
+		}
+	]
+}
