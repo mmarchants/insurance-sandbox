@@ -86,10 +86,11 @@ public class PolicyController {
 
     @DeleteMapping("/policy/{id}")
     public boolean deletePolicyById(@PathVariable Long id) {
-        log.info("DELETE /policy/{id}");
+        log.info("DELETE /policy/{}", id);
         try {
             if (service.deletePolicyById(id)) {
                 log.info("Policy with ID {} was deleted", id);
+                return true;
             } else {
                 log.info("Policy with ID {} wasn't found/deleted", id);
             }

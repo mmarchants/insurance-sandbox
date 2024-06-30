@@ -79,8 +79,10 @@ public class PolicyServiceImpl implements PolicyService {
     @Override
     public boolean deletePolicyById(Long id) {
         try {
-            repository.deleteById(id);
-            return !repository.existsById(id);
+            if (repository.existsById(id)) {
+                repository.deleteById(id);
+                return !repository.existsById(id);
+            }
         } catch (Exception e) {
             log.error("Exception while executing 'deletePolicyById({})': ", id, e);
         }
