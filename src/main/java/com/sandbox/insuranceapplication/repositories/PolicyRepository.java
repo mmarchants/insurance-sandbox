@@ -1,6 +1,6 @@
-package com.sandbox.insurance.restapi.repositories;
+package com.sandbox.insuranceapplication.repositories;
 
-import com.sandbox.insurance.restapi.entities.PolicyEntity;
+import com.sandbox.insuranceapplication.repositories.entities.PolicyEntity;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
 

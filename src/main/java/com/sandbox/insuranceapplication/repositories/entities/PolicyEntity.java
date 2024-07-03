@@ -1,6 +1,6 @@
-package com.sandbox.insurance.restapi.entities;
+package com.sandbox.insuranceapplication.repositories.entities;
 
-import com.sandbox.insurance.restapi.records.Policy;
+import com.sandbox.insuranceapplication.repositories.records.Policy;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

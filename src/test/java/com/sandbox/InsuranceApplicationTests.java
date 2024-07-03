@@ -1,10 +1,10 @@
-package com.sandbox.insurance;
+package com.sandbox;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class InsuranceSandboxApplicationTests {
+class InsuranceApplicationTests {
 
 	@Test
 	void contextLoads() {

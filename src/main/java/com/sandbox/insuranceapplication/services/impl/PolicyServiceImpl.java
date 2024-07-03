@@ -1,9 +1,9 @@
-package com.sandbox.insurance.restapi.services.impl;
+package com.sandbox.insuranceapplication.services.impl;
 
-import com.sandbox.insurance.restapi.entities.PolicyEntity;
-import com.sandbox.insurance.restapi.records.Policy;
-import com.sandbox.insurance.restapi.repositories.PolicyRepository;
-import com.sandbox.insurance.restapi.services.PolicyService;
+import com.sandbox.insuranceapplication.repositories.entities.PolicyEntity;
+import com.sandbox.insuranceapplication.repositories.records.Policy;
+import com.sandbox.insuranceapplication.repositories.PolicyRepository;
+import com.sandbox.insuranceapplication.services.PolicyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

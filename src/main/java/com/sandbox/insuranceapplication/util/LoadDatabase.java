@@ -1,7 +1,7 @@
-package com.sandbox.insurance.util;
+package com.sandbox.insuranceapplication.util;
 
-import com.sandbox.insurance.restapi.records.Policy;
-import com.sandbox.insurance.restapi.repositories.PolicyRepository;
+import com.sandbox.insuranceapplication.repositories.records.Policy;
+import com.sandbox.insuranceapplication.repositories.PolicyRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;

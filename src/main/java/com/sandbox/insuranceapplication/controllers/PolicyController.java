@@ -1,7 +1,7 @@
-package com.sandbox.insurance.restapi.controllers;
+package com.sandbox.insuranceapplication.controllers;
 
-import com.sandbox.insurance.restapi.records.Policy;
-import com.sandbox.insurance.restapi.services.PolicyService;
+import com.sandbox.insuranceapplication.repositories.records.Policy;
+import com.sandbox.insuranceapplication.services.PolicyService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

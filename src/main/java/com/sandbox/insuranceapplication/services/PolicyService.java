@@ -1,9 +1,8 @@
-package com.sandbox.insurance.restapi.services;
+package com.sandbox.insuranceapplication.services;
 
-import com.sandbox.insurance.restapi.records.Policy;
+import com.sandbox.insuranceapplication.repositories.records.Policy;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface PolicyService {
 

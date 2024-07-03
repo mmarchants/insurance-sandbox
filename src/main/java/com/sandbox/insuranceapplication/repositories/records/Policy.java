@@ -1,6 +1,6 @@
-package com.sandbox.insurance.restapi.records;
+package com.sandbox.insuranceapplication.repositories.records;
 
-import com.sandbox.insurance.restapi.entities.PolicyEntity;
+import com.sandbox.insuranceapplication.repositories.entities.PolicyEntity;
 import lombok.Builder;
 
 @Builder
