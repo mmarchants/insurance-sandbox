@@ -1,33 +1,28 @@
 package com.sandbox.insuranceapplication.services.impl;
 
 import com.sandbox.insuranceapplication.repositories.entities.PolicyEntity;
-import com.sandbox.insuranceapplication.repositories.records.Policy;
 import com.sandbox.insuranceapplication.repositories.PolicyRepository;
 import com.sandbox.insuranceapplication.services.PolicyService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PolicyServiceImpl implements PolicyService {
 
     private final PolicyRepository repository;
 
-    @Autowired
-    public PolicyServiceImpl(PolicyRepository repository) {
-        this.repository = repository;
-    }
-
     @Override
-    public List<Policy> getAllPolicies() {
+    public List<PolicyEntity> getAllPolicies() {
         try {
-            return repository.findAll()
-                    .stream().map(PolicyEntity::toRecord)
-                    .toList();
+            List<PolicyEntity> policies = repository.findAll();
+            log.info("Nº of policies: {}", policies.size());
+            return policies;
         } catch (Exception e) {
             log.error("Exception while executing 'getAllPolicies()': ", e);
         }
@@ -35,10 +30,15 @@ public class PolicyServiceImpl implements PolicyService {
     }
 
     @Override
-    public Policy savePolicy(Policy policy) {
+    public PolicyEntity savePolicy(PolicyEntity policy) {
         try {
-            return repository.save(policy.toEntity())
-                    .toRecord();
+            PolicyEntity newPolicy = repository.save(policy);
+            if (repository.existsById(newPolicy.getId())) {
+                log.info("Saved policy: {}", newPolicy);
+                return newPolicy;
+            } else {
+                log.info("Policy {} wasn't saved", policy);
+            }
         } catch (Exception e) {
             log.error("Exception while executing 'savePolicy({})': ", policy != null ? policy.toString() : null, e);
         }
@@ -46,11 +46,15 @@ public class PolicyServiceImpl implements PolicyService {
     }
 
     @Override
-    public Policy getPolicyById(Long id) {
+    public PolicyEntity getPolicyById(String id) {
         try {
-            return repository.findById(id)
-                    .map(PolicyEntity::toRecord)
-                    .orElse(null);
+            PolicyEntity foundPolicy = repository.findById(Long.valueOf(id)).orElse(null);
+            if (foundPolicy == null) {
+                log.info("No policy found with ID: {}", id);
+            } else {
+                log.info("Policy found with ID {}: {}", id, foundPolicy);
+                return foundPolicy;
+            }
         } catch (Exception e) {
             log.error("Exception while executing 'getPolicyById({})': ", id, e);
         }
@@ -58,30 +62,37 @@ public class PolicyServiceImpl implements PolicyService {
     }
 
     @Override
-    public Policy updatePolicyById(Long id, Policy policy) {
+    public PolicyEntity updatePolicyById(String id, PolicyEntity policy) {
         try {
-            Optional<Policy> foundPolicy = repository.findById(id).map(PolicyEntity::toRecord);
-            if (foundPolicy.isPresent()) {
-                Policy updatedPolicy = Policy.builder()
-                        .id(foundPolicy.get().id())
-                        .name(policy.name())
-                        .active(policy.active())
+            PolicyEntity foundPolicy = this.getPolicyById(id);
+            if (foundPolicy != null) {
+                PolicyEntity updatedPolicy = PolicyEntity.builder()
+                        .id(foundPolicy.getId())
+                        .name(policy.getName())
+                        .active(policy.isActive())
                         .build();
-                return repository.save(updatedPolicy.toEntity())
-                        .toRecord();
+                return this.savePolicy(updatedPolicy);
             }
         } catch (Exception e) {
-            log.error("Exception while executing 'updatePolicyById({})': ", id, e);
+            log.error("Exception while executing 'updatePolicyById({}, {})': ", id, policy.toString(), e);
         }
         return null;
     }
 
     @Override
-    public boolean deletePolicyById(Long id) {
+    public boolean deletePolicyById(String id) {
         try {
-            if (repository.existsById(id)) {
-                repository.deleteById(id);
-                return !repository.existsById(id);
+            Long idNumber = Long.valueOf(id);
+            if (repository.existsById(idNumber)) {
+                repository.deleteById(idNumber);
+                if (repository.existsById(idNumber)) {
+                    log.info("Policy with ID {} wasn't deleted", id);
+                } else {
+                    log.info("Policy with ID {} was deleted", id);
+                    return true;
+                }
+            } else {
+                log.info("Policy with ID {} wasn't found", id);
             }
         } catch (Exception e) {
             log.error("Exception while executing 'deletePolicyById({})': ", id, e);

@@ -1,19 +1,19 @@
 package com.sandbox.insuranceapplication.services;
 
-import com.sandbox.insuranceapplication.repositories.records.Policy;
+import com.sandbox.insuranceapplication.repositories.entities.PolicyEntity;
 
 import java.util.List;
 
 public interface PolicyService {
 
-    List<Policy> getAllPolicies();
+    List<PolicyEntity> getAllPolicies();
 
-    Policy savePolicy(Policy policy);
+    PolicyEntity savePolicy(PolicyEntity policy);
 
-    Policy getPolicyById(Long id);
+    PolicyEntity getPolicyById(String id);
 
-    Policy updatePolicyById(Long id, Policy policy);
+    PolicyEntity updatePolicyById(String id, PolicyEntity policy);
 
-    boolean deletePolicyById(Long id);
+    boolean deletePolicyById(String id);
 
 }

@@ -1,15 +1,20 @@
 package com.sandbox.insuranceapplication.repositories.entities;
 
-import com.sandbox.insuranceapplication.repositories.records.Policy;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@Table(name = "policy")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "vehicles", "drivers"})
 public class PolicyEntity {
 
     @Id
@@ -18,7 +23,12 @@ public class PolicyEntity {
     private String name;
     private boolean active;
 
-    public Policy toRecord() {
-        return new Policy(id, name, active);
-    }
+    @ToString.Exclude
+    @OneToMany(mappedBy = "policy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<VehicleEntity> vehicles;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "policy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<DriverEntity> drivers;
+
 }
