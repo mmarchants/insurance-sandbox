@@ -2,6 +2,7 @@ package com.sandbox.insuranceapplication.controllers;
 
 import com.sandbox.insuranceapplication.repositories.entities.DriverEntity;
 import com.sandbox.insuranceapplication.repositories.entities.PolicyEntity;
+import com.sandbox.insuranceapplication.repositories.entities.VehicleEntity;
 import com.sandbox.insuranceapplication.services.PolicyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -52,5 +53,11 @@ public class PolicyController {
     public List<DriverEntity> getPolicyDrivers(@PathVariable("name") String name) {
         log.info("GET /policy/{}/drivers", name);
         return service.getPolicyDrivers(name);
+    }
+
+    @GetMapping("/policy/{name}/vehicles")
+    public List<VehicleEntity> getPolicyVehicles(@PathVariable("name") String name) {
+        log.info("GET /policy/{}/vehicles", name);
+        return service.getPolicyVehicles(name);
     }
 }

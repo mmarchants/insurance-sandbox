@@ -2,6 +2,7 @@ package com.sandbox.insuranceapplication.services;
 
 import com.sandbox.insuranceapplication.repositories.entities.DriverEntity;
 import com.sandbox.insuranceapplication.repositories.entities.PolicyEntity;
+import com.sandbox.insuranceapplication.repositories.entities.VehicleEntity;
 
 import java.util.List;
 
@@ -18,5 +19,7 @@ public interface PolicyService {
     boolean deletePolicyById(String id);
 
     List<DriverEntity> getPolicyDrivers(String policyName);
+
+    List<VehicleEntity> getPolicyVehicles(String policyName);
 
 }
