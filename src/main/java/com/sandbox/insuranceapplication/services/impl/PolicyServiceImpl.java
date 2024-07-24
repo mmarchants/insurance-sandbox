@@ -1,5 +1,6 @@
 package com.sandbox.insuranceapplication.services.impl;
 
+import com.sandbox.insuranceapplication.repositories.entities.DriverEntity;
 import com.sandbox.insuranceapplication.repositories.entities.PolicyEntity;
 import com.sandbox.insuranceapplication.repositories.PolicyRepository;
 import com.sandbox.insuranceapplication.services.PolicyService;
@@ -7,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -100,5 +102,21 @@ public class PolicyServiceImpl implements PolicyService {
         return false;
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<DriverEntity> getPolicyDrivers(String policyName) {
+        try {
+            PolicyEntity foundPolicy = repository.findByPolicyName(policyName);
+            if (foundPolicy == null) {
+                log.info("No policy found with name: {}", policyName);
+            } else {
+                log.info("Policy found with name {}: {}", policyName, foundPolicy);
+                return foundPolicy.getDrivers();
+            }
+        } catch (Exception e) {
+            log.error("Exception while executing 'getPolicyDrivers({})': ", policyName, e);
+        }
+        return null;
+    }
 }
 

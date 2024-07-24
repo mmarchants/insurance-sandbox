@@ -1,5 +1,6 @@
 package com.sandbox.insuranceapplication.services;
 
+import com.sandbox.insuranceapplication.repositories.entities.DriverEntity;
 import com.sandbox.insuranceapplication.repositories.entities.PolicyEntity;
 
 import java.util.List;
@@ -15,5 +16,7 @@ public interface PolicyService {
     PolicyEntity updatePolicyById(String id, PolicyEntity policy);
 
     boolean deletePolicyById(String id);
+
+    List<DriverEntity> getPolicyDrivers(String policyName);
 
 }

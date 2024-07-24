@@ -1,5 +1,6 @@
 package com.sandbox.insuranceapplication.controllers;
 
+import com.sandbox.insuranceapplication.repositories.entities.DriverEntity;
 import com.sandbox.insuranceapplication.repositories.entities.PolicyEntity;
 import com.sandbox.insuranceapplication.services.PolicyService;
 import jakarta.validation.Valid;
@@ -47,9 +48,9 @@ public class PolicyController {
         return service.deletePolicyById(id);
     }
 
-    @GetMapping("/policy/{id}/drivers")
-    public PolicyEntity getPolicyDrivers(@PathVariable("id") String id) {
-        log.info("GET /policy/{}/drivers", id);
-        return service.getPolicyById(id);
+    @GetMapping("/policy/{name}/drivers")
+    public List<DriverEntity> getPolicyDrivers(@PathVariable("name") String name) {
+        log.info("GET /policy/{}/drivers", name);
+        return service.getPolicyDrivers(name);
     }
 }
