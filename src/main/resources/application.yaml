@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: Sandbox
+  profiles:
+    active: prod
+---
+yaml:
+  name: Sandbox-PROD
+  environment: production
+  enabled: true
+  servers:
+    - www.localhost.com
+spring:
+  config:
+    activate:
+      on-profile: prod
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      #javax.persistence.schema-generation.scripts.action=create
+      #javax.persistence.schema-generation.scripts.create-target=create_script.sql
+      #javax.persistence.schema-generation.scripts.create-source=metadata
+      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    defer-datasource-initialization: true
+    open-in-view: true
+  #    show-sql: false
+# ===============================
+  # DATABASE PROPERTIES
+  # ===============================
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: admin
+  #driverClassName: org.postgresql.Driver
+  #driver-class-name: org.postgresql.Driver
+
+  # swagger-ui custom path
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+---
+# Test properties and other environments below
+

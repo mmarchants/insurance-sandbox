@@ -42,7 +42,7 @@ class LoadDatabase {
             PolicyEntity policy8 = policyRepository.save(PolicyEntity.builder().id(8L).name("44-12345F-00-01").active(false).build());
             PolicyEntity policy9 = policyRepository.save(PolicyEntity.builder().id(9L).name("55-12345G-00-01").active(true).build());
             PolicyEntity policy10 = policyRepository.save(PolicyEntity.builder().id(10L).name("55-12345H-00-01").active(true).build());
-            log.info("Preloaded policies");
+            log.info("Preloaded policies.");
 
             // Preload Vehicles with Policies
             vehicleRepository.save(VehicleEntity.builder().id(1L).vin("1234567890ABC").make("Toyota").model("Corolla").year(2016).policy(policy1).build());
@@ -56,7 +56,7 @@ class LoadDatabase {
             vehicleRepository.save(VehicleEntity.builder().id(8L).vin("8901234567VWX").make("Audi").model("A4").year(2018).policy(policy4).build());
             vehicleRepository.save(VehicleEntity.builder().id(9L).vin("9012345678YZA").make("Lexus").model("ES").year(2022).policy(policy5).build());
             vehicleRepository.save(VehicleEntity.builder().id(10L).vin("0123456789BCD").make("Tesla").model("Model 3").year(2023).policy(policy5).build());
-            log.info("Preloaded vehicles");
+            log.info("Preloaded vehicles.");
 
             // Preload Drivers with Policies
             driverRepository.save(DriverEntity.builder().id(1L).name("John").surname("Doe").phoneNumber("123-456-7890").email("john.doe@example.com").dateOfBirth(LocalDate.of(1980, 1, 1)).driversLicence("D123456").policy(policy1).build());
@@ -69,7 +69,7 @@ class LoadDatabase {
             driverRepository.save(DriverEntity.builder().id(8L).name("Linda").surname("Taylor").phoneNumber("888-999-0000").email("linda.taylor@example.com").dateOfBirth(LocalDate.of(1983, 8, 8)).driversLicence("D889900").policy(policy4).build());
             driverRepository.save(DriverEntity.builder().id(9L).name("Michael").surname("Anderson").phoneNumber("333-444-5555").email("michael.anderson@example.com").dateOfBirth(LocalDate.of(1978, 9, 9)).driversLicence("D334455").policy(policy5).build());
             driverRepository.save(DriverEntity.builder().id(10L).name("Elizabeth").surname("Thomas").phoneNumber("666-777-8888").email("elizabeth.thomas@example.com").dateOfBirth(LocalDate.of(1992, 10, 10)).driversLicence("D667788").policy(policy5).build());
-            log.info("Preloaded drivers");
+            log.info("Preloaded drivers.");
 
             log.info("Done.");
         };
