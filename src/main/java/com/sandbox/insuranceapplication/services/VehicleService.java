@@ -10,10 +10,10 @@ public interface VehicleService {
 
     VehicleEntity saveVehicle(VehicleEntity vehicle);
 
-    VehicleEntity getVehicleById(Long id);
+    VehicleEntity getVehicleById(String id);
 
-    VehicleEntity updateVehicleById(Long id, VehicleEntity vehicle);
+    VehicleEntity updateVehicleById(String id, VehicleEntity vehicle);
 
-    boolean deleteVehicleById(Long id);
+    boolean deleteVehicleById(String id);
 
 }

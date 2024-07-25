@@ -31,19 +31,19 @@ public class VehicleController {
     }
 
     @GetMapping("/vehicle/{id}")
-    public VehicleEntity getVehicleById(@PathVariable("id") Long id) {
+    public VehicleEntity getVehicleById(@PathVariable("id") String id) {
         log.info("GET /vehicle/{}", id);
         return service.getVehicleById(id);
     }
 
     @PutMapping("/vehicle/{id}")
-    public VehicleEntity updateVehicleById(@PathVariable("id") Long id, @Valid @RequestBody VehicleEntity vehicle) {
+    public VehicleEntity updateVehicleById(@PathVariable("id") String id, @Valid @RequestBody VehicleEntity vehicle) {
         log.info("PUT /vehicle/{}", id);
         return service.updateVehicleById(id, vehicle);
     }
 
     @DeleteMapping("/vehicle/{id}")
-    public boolean deleteVehicleById(@PathVariable Long id) {
+    public boolean deleteVehicleById(@PathVariable String id) {
         log.info("DELETE /vehicle/{}", id);
         return service.deleteVehicleById(id);
     }

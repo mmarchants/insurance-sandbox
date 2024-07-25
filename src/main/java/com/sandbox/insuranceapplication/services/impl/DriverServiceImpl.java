@@ -1,12 +1,14 @@
 package com.sandbox.insuranceapplication.services.impl;
 
 import com.sandbox.insuranceapplication.repositories.DriverRepository;
+import com.sandbox.insuranceapplication.repositories.entities.ClaimEntity;
 import com.sandbox.insuranceapplication.repositories.entities.DriverEntity;
 import com.sandbox.insuranceapplication.services.DriverService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -103,4 +105,22 @@ public class DriverServiceImpl implements DriverService {
         }
         return false;
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ClaimEntity> getDriverClaims(String driversLicense) {
+        try {
+            DriverEntity foundDriver = repository.findByDriversLicense(driversLicense);
+            if (foundDriver == null) {
+                log.info("No driver found with DL: {}", driversLicense);
+            } else {
+                log.info("Driver found with DL {}: {}", driversLicense, foundDriver);
+                return foundDriver.getClaims();
+            }
+        } catch (Exception e) {
+            log.error("Exception while executing 'getDriverClaims({})': ", driversLicense, e);
+        }
+        return null;
+    }
+
 }

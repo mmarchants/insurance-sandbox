@@ -1,5 +1,6 @@
 package com.sandbox.insuranceapplication.controllers;
 
+import com.sandbox.insuranceapplication.repositories.entities.ClaimEntity;
 import com.sandbox.insuranceapplication.repositories.entities.DriverEntity;
 import com.sandbox.insuranceapplication.services.DriverService;
 import jakarta.validation.Valid;
@@ -45,6 +46,12 @@ public class DriverController {
     public boolean deleteDriverById(@PathVariable Long id) {
         log.info("DELETE /driver/{}", id);
         return service.deleteDriverById(id);
+    }
+
+    @GetMapping("/driver/{driversLicense}/claims")
+    public List<ClaimEntity> getDriverClaims(@PathVariable("driversLicense") String driversLicense) {
+        log.info("GET /driver/{}/claims", driversLicense);
+        return service.getDriverClaims(driversLicense);
     }
 
 }

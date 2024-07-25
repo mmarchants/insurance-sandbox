@@ -1,10 +1,12 @@
 package com.sandbox.insuranceapplication.util;
 
+import com.sandbox.insuranceapplication.repositories.ClaimRepository;
 import com.sandbox.insuranceapplication.repositories.DriverRepository;
+import com.sandbox.insuranceapplication.repositories.PolicyRepository;
 import com.sandbox.insuranceapplication.repositories.VehicleRepository;
+import com.sandbox.insuranceapplication.repositories.entities.ClaimEntity;
 import com.sandbox.insuranceapplication.repositories.entities.DriverEntity;
 import com.sandbox.insuranceapplication.repositories.entities.PolicyEntity;
-import com.sandbox.insuranceapplication.repositories.PolicyRepository;
 import com.sandbox.insuranceapplication.repositories.entities.VehicleEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +21,16 @@ import java.time.LocalDate;
 class LoadDatabase {
 
     @Autowired
+    private PolicyRepository policyRepository;
+
+    @Autowired
     private VehicleRepository vehicleRepository;
 
     @Autowired
     private DriverRepository driverRepository;
 
     @Autowired
-    private PolicyRepository policyRepository;
+    private ClaimRepository claimRepository;
 
     @Bean
     CommandLineRunner initDatabase() {
@@ -70,6 +75,30 @@ class LoadDatabase {
             driverRepository.save(DriverEntity.builder().id(9L).name("Michael").surname("Anderson").phoneNumber("333-444-5555").email("michael.anderson@example.com").dateOfBirth(LocalDate.of(1978, 9, 9)).driversLicence("D334455").policy(policy5).build());
             driverRepository.save(DriverEntity.builder().id(10L).name("Elizabeth").surname("Thomas").phoneNumber("666-777-8888").email("elizabeth.thomas@example.com").dateOfBirth(LocalDate.of(1992, 10, 10)).driversLicence("D667788").policy(policy5).build());
             log.info("Preloaded drivers.");
+
+
+            // Preload Claims linked to Drivers
+            claimRepository.save(ClaimEntity.builder().id(1L).description("Accident on highway").claimDate(LocalDate.of(2021, 1, 10)).identifier("CLM-48293710").driver(driverRepository.findById(1L).orElse(null)).build());
+            claimRepository.save(ClaimEntity.builder().id(2L).description("Minor collision").claimDate(LocalDate.of(2021, 2, 20)).identifier("CLM-57382914").driver(driverRepository.findById(2L).orElse(null)).build());
+            claimRepository.save(ClaimEntity.builder().id(3L).description("Windshield damage").claimDate(LocalDate.of(2021, 3, 15)).identifier("CLM-98127346").driver(driverRepository.findById(3L).orElse(null)).build());
+            claimRepository.save(ClaimEntity.builder().id(4L).description("Theft").claimDate(LocalDate.of(2021, 4, 25)).identifier("CLM-46738291").driver(driverRepository.findById(4L).orElse(null)).build());
+            claimRepository.save(ClaimEntity.builder().id(5L).description("Fire damage").claimDate(LocalDate.of(2021, 5, 30)).identifier("CLM-75829416").driver(driverRepository.findById(5L).orElse(null)).build());
+            claimRepository.save(ClaimEntity.builder().id(6L).description("Flood damage").claimDate(LocalDate.of(2021, 6, 12)).identifier("CLM-83920174").driver(driverRepository.findById(6L).orElse(null)).build());
+            claimRepository.save(ClaimEntity.builder().id(7L).description("Hit and run").claimDate(LocalDate.of(2021, 7, 4)).identifier("CLM-17294830").driver(driverRepository.findById(7L).orElse(null)).build());
+            claimRepository.save(ClaimEntity.builder().id(8L).description("Vandalism").claimDate(LocalDate.of(2021, 8, 18)).identifier("CLM-38492017").driver(driverRepository.findById(8L).orElse(null)).build());
+            claimRepository.save(ClaimEntity.builder().id(9L).description("Animal collision").claimDate(LocalDate.of(2021, 9, 22)).identifier("CLM-92731845").driver(driverRepository.findById(9L).orElse(null)).build());
+            claimRepository.save(ClaimEntity.builder().id(10L).description("Major accident").claimDate(LocalDate.of(2021, 1, 5)).identifier("CLM-61928347").driver(driverRepository.findById(10L).orElse(null)).build());
+            claimRepository.save(ClaimEntity.builder().id(11L).description("Fender bender").claimDate(LocalDate.of(2021, 1, 13)).identifier("CLM-74829301").driver(driverRepository.findById(1L).orElse(null)).build());
+            claimRepository.save(ClaimEntity.builder().id(12L).description("Parking lot incident").claimDate(LocalDate.of(2021, 1, 1)).identifier("CLM-29481736").driver(driverRepository.findById(2L).orElse(null)).build());
+            claimRepository.save(ClaimEntity.builder().id(13L).description("Road debris damage").claimDate(LocalDate.of(2022, 1, 20)).identifier("CLM-83729164").driver(driverRepository.findById(3L).orElse(null)).build());
+            claimRepository.save(ClaimEntity.builder().id(14L).description("Tire damage").claimDate(LocalDate.of(2022, 2, 28)).identifier("CLM-56192837").driver(driverRepository.findById(4L).orElse(null)).build());
+            claimRepository.save(ClaimEntity.builder().id(15L).description("Engine failure").claimDate(LocalDate.of(2022, 3, 15)).identifier("CLM-92837451").driver(driverRepository.findById(5L).orElse(null)).build());
+            claimRepository.save(ClaimEntity.builder().id(16L).description("Brake failure").claimDate(LocalDate.of(2022, 4, 18)).identifier("CLM-37184925").driver(driverRepository.findById(6L).orElse(null)).build());
+            claimRepository.save(ClaimEntity.builder().id(17L).description("Rear-end collision").claimDate(LocalDate.of(2022, 5, 22)).identifier("CLM-28419307").driver(driverRepository.findById(7L).orElse(null)).build());
+            claimRepository.save(ClaimEntity.builder().id(18L).description("Side swipe").claimDate(LocalDate.of(2022, 6, 29)).identifier("CLM-17382964").driver(driverRepository.findById(8L).orElse(null)).build());
+            claimRepository.save(ClaimEntity.builder().id(19L).description("Rollover accident").claimDate(LocalDate.of(2022, 7, 9)).identifier("CLM-39281746").driver(driverRepository.findById(9L).orElse(null)).build());
+            claimRepository.save(ClaimEntity.builder().id(20L).description("Tree damage").claimDate(LocalDate.of(2022, 8, 14)).identifier("CLM-71829340").driver(driverRepository.findById(10L).orElse(null)).build());
+            log.info("Preloaded claims.");
 
             log.info("Done.");
         };

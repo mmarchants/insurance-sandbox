@@ -46,9 +46,9 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public VehicleEntity getVehicleById(Long id) {
+    public VehicleEntity getVehicleById(String id) {
         try {
-            VehicleEntity foundVehicle = repository.findById(id).orElse(null);
+            VehicleEntity foundVehicle = repository.findById(Long.valueOf(id)).orElse(null);
             if (foundVehicle == null) {
                 log.info("No vehicle found with ID: {}", id);
             } else {
@@ -62,7 +62,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public VehicleEntity updateVehicleById(Long id, VehicleEntity vehicle) {
+    public VehicleEntity updateVehicleById(String id, VehicleEntity vehicle) {
         try {
             VehicleEntity foundVehicle = this.getVehicleById(id);
             if (foundVehicle != null) {
@@ -82,11 +82,12 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public boolean deleteVehicleById(Long id) {
+    public boolean deleteVehicleById(String id) {
         try {
-            if (repository.existsById(id)) {
-                repository.deleteById(id);
-                if (repository.existsById(id)) {
+            Long idNumber = Long.valueOf(id);
+            if (repository.existsById(idNumber)) {
+                repository.deleteById(idNumber);
+                if (repository.existsById(idNumber)) {
                     log.info("Vehicle with ID {} wasn't deleted", id);
                 } else {
                     log.info("Vehicle with ID {} was deleted", id);

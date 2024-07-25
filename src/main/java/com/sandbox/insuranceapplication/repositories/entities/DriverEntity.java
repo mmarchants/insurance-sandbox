@@ -1,10 +1,11 @@
 package com.sandbox.insuranceapplication.repositories.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @Table(name = "driver")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "claims"})
 public class DriverEntity {
 
     @Id
@@ -27,4 +29,9 @@ public class DriverEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "policy_id")
     private PolicyEntity policy;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ClaimEntity> claims;
+
 }
