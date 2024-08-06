@@ -41,6 +41,18 @@ http://localhost:8080/swagger-ui/index.html
 
 * No code was taken from private repositories
 
+## To Do:
+* Add Endpoint pagination (@Pageable).
+* Add cache to endpoints and make sure to keep cache updated if records are deleted.
+* Update readme with dependencies, how to run, how to test and a brief description.
+* Create local postgres DB.
+* Connect to 3rd party for address validation (USPS using RestTemplates/Webflux & use versioning e.g. v1/resttemplates).
+* Future: 
+  * Add another 3rd party integration with gRPC.
+  * Connect with AWS: QueueListener, Store data on S3.
+  * CI/CD.
+
+
 ## Author
 
 * **Mariano Marchant** - *Senior Java Developer* - [GitHub](https://github.com/mmarchants)
