@@ -16,32 +16,27 @@ spring:
       on-profile: prod
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     properties:
-      #javax.persistence.schema-generation.scripts.action=create
-      #javax.persistence.schema-generation.scripts.create-target=create_script.sql
-      #javax.persistence.schema-generation.scripts.create-source=metadata
       hibernate:
-#        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     defer-datasource-initialization: true
     open-in-view: true
   #    show-sql: false
 # ===============================
-  # DATABASE PROPERTIES
-  # ===============================
+# DATABASE PROPERTIES
+# ===============================
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/sandbox
     username: postgres
     password: admin
-  #driverClassName: org.postgresql.Driver
-  #driver-class-name: org.postgresql.Driver
-
-  # swagger-ui custom path
+# ===============================
+# Swagger UI
+# ===============================
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
-
 ---
 # Test properties and other environments below
 

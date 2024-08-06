@@ -14,7 +14,15 @@ For building and running the application you need:
 
 - [JDK 21](https://openjdk.org/projects/jdk/21/) (via [SDKMAN!](https://sdkman.io/http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html))
 - [Maven 3](https://maven.apache.org)
-
+- [PostgreSQL](https://www.postgresql.org/download/)
+  - After instaling, you need to create a DB for the application to use:
+    ```shell
+    psql -U postgres
+    ```
+  - Then, create a new database and specify the default user as owner:
+    ```shell
+    postgres=# CREATE DATABASE sandbox OWNER postgres;
+    ```  
 ### Running the application locally
 
 There are multiple ways to run the application on your local machine. One way is to execute the `main` method in the `com.sandbox.InsuranceApplication` class from your IDE.
@@ -45,7 +53,7 @@ http://localhost:8080/swagger-ui/index.html
 * Add Endpoint pagination (@Pageable).
 * Add cache to endpoints and make sure to keep cache updated if records are deleted.
 * Update readme with dependencies, how to run, how to test and a brief description.
-* Create local postgres DB.
+* ~~Create local postgres DB.~~
 * Connect to 3rd party for address validation (USPS using RestTemplates/Webflux & use versioning e.g. v1/resttemplates).
 * Future: 
   * Add another 3rd party integration with gRPC.
