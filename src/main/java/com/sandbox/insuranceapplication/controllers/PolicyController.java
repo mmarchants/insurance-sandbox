@@ -8,6 +8,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,9 +24,11 @@ public class PolicyController {
     private final PolicyService service;
 
     @GetMapping("/policies")
-    public List<PolicyEntity> getAllPolicies() {
+    public Page<PolicyEntity> getAllPolicies(
+            @PageableDefault(page = 0, size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable
+    ) {
         log.info("GET /policies");
-        return service.getAllPolicies();
+        return service.getAllPolicies(pageable);
     }
 
     @PostMapping("/policy")

@@ -1,12 +1,12 @@
 package com.sandbox.insuranceapplication.services;
 
 import com.sandbox.insuranceapplication.repositories.entities.VehicleEntity;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface VehicleService {
 
-    List<VehicleEntity> getAllVehicles();
+    Page<VehicleEntity> getAllVehicles(Pageable pageable);
 
     VehicleEntity saveVehicle(VehicleEntity vehicle);
 

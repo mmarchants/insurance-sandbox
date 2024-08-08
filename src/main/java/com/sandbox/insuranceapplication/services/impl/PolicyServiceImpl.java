@@ -8,6 +8,8 @@ import com.sandbox.insuranceapplication.services.PolicyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,10 +23,10 @@ public class PolicyServiceImpl implements PolicyService {
     private final PolicyRepository repository;
 
     @Override
-    public List<PolicyEntity> getAllPolicies() {
+    public Page<PolicyEntity> getAllPolicies(Pageable pageable) {
         try {
-            List<PolicyEntity> policies = repository.findAll();
-            log.info("Nº of policies: {}", policies.size());
+            Page<PolicyEntity> policies = repository.findAll(pageable);
+            log.info("Nº of policies: {}", policies.getTotalElements());
             return policies;
         } catch (Exception e) {
             log.error("Exception while executing 'getAllPolicies()': ", e);

@@ -6,9 +6,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -18,9 +20,11 @@ public class ClaimController {
     private final ClaimService service;
 
     @GetMapping("/claims")
-    public List<ClaimEntity> getAllClaims() {
+    public Page<ClaimEntity> getAllClaims(
+            @PageableDefault(page = 0, size = 10, sort = {"driver", "claimDate"}, direction = Sort.Direction.DESC) Pageable pageable
+    ) {
         log.info("GET /claims");
-        return service.getAllClaims();
+        return service.getAllClaims(pageable);
     }
 
     @PostMapping("/claim")

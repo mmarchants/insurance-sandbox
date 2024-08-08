@@ -6,9 +6,9 @@ import com.sandbox.insuranceapplication.services.ClaimService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @Slf4j
@@ -18,10 +18,10 @@ public class ClaimServiceImpl implements ClaimService {
     private final ClaimRepository repository;
 
     @Override
-    public List<ClaimEntity> getAllClaims() {
+    public Page<ClaimEntity> getAllClaims(Pageable pageable) {
         try {
-            List<ClaimEntity> claims = repository.findAll();
-            log.info("Nº of claims: {}", claims.size());
+            Page<ClaimEntity> claims = repository.findAll(pageable);
+            log.info("Nº of claims: {}", claims.getTotalElements());
             return claims;
         } catch (Exception e) {
             log.error("Exception while executing 'getAllClaims()': ", e);

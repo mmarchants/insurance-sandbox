@@ -1,12 +1,12 @@
 package com.sandbox.insuranceapplication.services;
 
 import com.sandbox.insuranceapplication.repositories.entities.ClaimEntity;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface ClaimService {
 
-    List<ClaimEntity> getAllClaims();
+    Page<ClaimEntity> getAllClaims(Pageable pageable);
 
     ClaimEntity saveClaim(ClaimEntity claim);
 

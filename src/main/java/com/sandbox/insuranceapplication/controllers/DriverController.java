@@ -7,9 +7,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -19,9 +21,11 @@ public class DriverController {
     private final DriverService service;
 
     @GetMapping("/drivers")
-    public List<DriverEntity> getAllDrivers() {
+    public Page<DriverEntity> getAllDrivers(
+            @PageableDefault(page = 0, size = 10, sort = {"policy", "dateOfBirth"}, direction = Sort.Direction.ASC) Pageable pageable
+    ) {
         log.info("GET /drivers");
-        return service.getAllDrivers();
+        return service.getAllDrivers(pageable);
     }
 
     @PostMapping("/driver")
@@ -49,9 +53,11 @@ public class DriverController {
     }
 
     @GetMapping("/driver/{driversLicense}/claims")
-    public List<ClaimEntity> getDriverClaims(@PathVariable("driversLicense") String driversLicense) {
+    public Page<ClaimEntity> getDriverClaims(
+            @PageableDefault(page = 0, size = 10, sort = {"claimDate"}, direction = Sort.Direction.DESC) Pageable pageable,
+            @PathVariable("driversLicense") String driversLicense) {
         log.info("GET /driver/{}/claims", driversLicense);
-        return service.getDriverClaims(driversLicense);
+        return service.getDriverClaims(pageable, driversLicense);
     }
 
 }

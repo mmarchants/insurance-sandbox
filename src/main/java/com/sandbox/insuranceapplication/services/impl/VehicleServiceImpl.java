@@ -6,9 +6,9 @@ import com.sandbox.insuranceapplication.services.VehicleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @Slf4j
@@ -18,10 +18,10 @@ public class VehicleServiceImpl implements VehicleService {
     private final VehicleRepository repository;
 
     @Override
-    public List<VehicleEntity> getAllVehicles() {
+    public Page<VehicleEntity> getAllVehicles(Pageable pageable) {
         try {
-            List<VehicleEntity> vehicles = repository.findAll();
-            log.info("Nº of vehicles: {}", vehicles.size());
+            Page<VehicleEntity> vehicles = repository.findAll(pageable);
+            log.info("Nº of vehicles: {}", vehicles.getTotalElements());
             return vehicles;
         } catch (Exception e) {
             log.error("Exception while executing 'getAllVehicles()': ", e);

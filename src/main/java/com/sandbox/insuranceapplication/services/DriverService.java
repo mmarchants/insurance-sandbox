@@ -2,12 +2,12 @@ package com.sandbox.insuranceapplication.services;
 
 import com.sandbox.insuranceapplication.repositories.entities.ClaimEntity;
 import com.sandbox.insuranceapplication.repositories.entities.DriverEntity;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface DriverService {
 
-    List<DriverEntity> getAllDrivers();
+    Page<DriverEntity> getAllDrivers(Pageable pageable);
 
     DriverEntity saveDriver(DriverEntity driver);
 
@@ -17,6 +17,6 @@ public interface DriverService {
 
     boolean deleteDriverById(Long id);
 
-    List<ClaimEntity> getDriverClaims(String driversLicense);
+    Page<ClaimEntity> getDriverClaims(Pageable pageable, String driversLicense);
 
 }

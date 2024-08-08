@@ -7,6 +7,9 @@ import com.sandbox.insuranceapplication.services.DriverService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,10 +23,10 @@ public class DriverServiceImpl implements DriverService {
     private final DriverRepository repository;
 
     @Override
-    public List<DriverEntity> getAllDrivers() {
+    public Page<DriverEntity> getAllDrivers(Pageable pageable) {
         try {
-            List<DriverEntity> drivers = repository.findAll();
-            log.info("Nº of drivers: {}", drivers.size());
+            Page<DriverEntity> drivers = repository.findAll(pageable);
+            log.info("Nº of drivers: {}", drivers.getTotalElements());
             return drivers;
         } catch (Exception e) {
             log.error("Exception while executing 'getAllDrivers()': ", e);
@@ -108,14 +111,15 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ClaimEntity> getDriverClaims(String driversLicense) {
+    public Page<ClaimEntity> getDriverClaims(Pageable pageable, String driversLicense) {
         try {
             DriverEntity foundDriver = repository.findByDriversLicense(driversLicense);
             if (foundDriver == null) {
                 log.info("No driver found with DL: {}", driversLicense);
             } else {
                 log.info("Driver found with DL {}: {}", driversLicense, foundDriver);
-                return foundDriver.getClaims();
+                List<ClaimEntity> driverClaims = foundDriver.getClaims();
+                return new PageImpl<>(driverClaims, pageable, driverClaims.size());
             }
         } catch (Exception e) {
             log.error("Exception while executing 'getDriverClaims({})': ", driversLicense, e);

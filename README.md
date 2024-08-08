@@ -50,7 +50,7 @@ http://localhost:8080/swagger-ui/index.html
 * No code was taken from private repositories
 
 ## To Do:
-* Add Endpoint pagination (@Pageable).
+* ~~Add Endpoint pagination (@Pageable)~~.
 * Add cache to endpoints and make sure to keep cache updated if records are deleted.
 * Update readme with dependencies, how to run, how to test and a brief description.
 * ~~Create local postgres DB.~~

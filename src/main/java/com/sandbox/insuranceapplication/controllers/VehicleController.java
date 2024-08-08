@@ -7,9 +7,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -19,9 +21,10 @@ public class VehicleController {
     private final VehicleService service;
 
     @GetMapping("/vehicles")
-    public List<VehicleEntity> getAllVehicles() {
+    public Page<VehicleEntity> getAllVehicles(
+            @PageableDefault(page = 0, size = 10, sort = {"policy", "year"}, direction = Sort.Direction.DESC) Pageable pageable) {
         log.info("GET /vehicles");
-        return service.getAllVehicles();
+        return service.getAllVehicles(pageable);
     }
 
     @PostMapping("/vehicle")
